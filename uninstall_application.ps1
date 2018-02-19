@@ -2,7 +2,11 @@
 .SYNOPSIS
 Uninstalls application from workstation
 .EXAMPLE
+Running from command line:
+
 powershell -executionPolicy bypass -NonInteractive -NoProfile -file ".\uninstall_application.ps1" -applicationName Foobar
+EXIT /B %ERRORLEVEL%
+
 .PARAMETER applicationName
 The name of the applicatoin you would like to uninstall.
 .PARAMETER logName
@@ -15,14 +19,12 @@ Param(
 
 New-EventLog -LogName Application -Source $logName -ErrorAction SilentlyContinue
 
-
 # Check to see if script is running on a server.
 $wmiStore = Get-WmiObject -Class Win32_OperatingSystem
 $osName = $wmiStore.caption
 if($osName -like "*Server*") {
     Exit
 }
-
 
 try {
     $application = Get-WmiObject Win32_Product -filter "Name='$applicationName'"
