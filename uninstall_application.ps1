@@ -47,4 +47,5 @@ try {
         -Message "Unable to uninstall applcation: $applicationName`n $_" `
         -EventId 2 `
         -EntryType Error
+    Exit 1 #Exit out to command prompt with non 0
 }
