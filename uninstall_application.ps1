@@ -2,7 +2,7 @@
 .SYNOPSIS
 Uninstalls application from workstation
 .EXAMPLE
-powershell -file:uninstall_applicatoin.ps1 -applicationName "Notepad" -logName "AcmeScripts"
+powershell -executionPolicy bypass -NonInteractive -NoProfile -file ".\uninstall_application.ps1" -applicationName Foobar
 .PARAMETER applicationName
 The name of the applicatoin you would like to uninstall.
 .PARAMETER logName
@@ -17,10 +17,12 @@ New-EventLog -LogName Application -Source $logName -ErrorAction SilentlyContinue
 
 
 # Check to see if script is running on a server.
-$osName = Get-ComputerInfo -Property OsName
+$wmiStore = Get-WmiObject -Class Win32_OperatingSystem
+$osName = $wmiStore.caption
 if($osName -like "*Server*") {
     Exit
 }
+
 
 try {
     $application = Get-WmiObject Win32_Product -filter "Name='$applicationName'"
