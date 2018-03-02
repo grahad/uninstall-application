@@ -18,7 +18,7 @@ Param(
     )
 
 New-EventLog -LogName Application -Source $logName -ErrorAction SilentlyContinue
-Checkpoint-Computer -Description "Before powerhell script" -RestorePointType APPLICATION_INSTALL
+Checkpoint-Computer -Description "Before powershell script" -RestorePointType APPLICATION_INSTALL
 
 
 # Check to see if script is running on a server.
