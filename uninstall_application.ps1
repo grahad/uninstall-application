@@ -18,6 +18,8 @@ Param(
     )
 
 New-EventLog -LogName Application -Source $logName -ErrorAction SilentlyContinue
+Checkpoint-Computer -Description "Before powerhell script" -RestorePointType APPLICATION_INSTALL
+
 
 # Check to see if script is running on a server.
 $wmiStore = Get-WmiObject -Class Win32_OperatingSystem
